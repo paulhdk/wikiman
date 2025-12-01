@@ -35,7 +35,7 @@ core:
 				${BUILDDIR}/usr/share/man/man1
 	install 	-Dm755 	${WORKDIR}/${NAME}.sh \
 				${BUILDDIR}/usr/bin/${NAME}
-	cp 		-fr 	${WORKDIR}/sources \
+	cp 		-fR 	${WORKDIR}/sources \
 				${BUILDDIR}/usr/share/${NAME}
 	install 	-Dm644 	${WORKDIR}/LICENSE \
 				${BUILDDIR}/usr/share/licenses/${NAME}
@@ -46,7 +46,7 @@ core:
 widgets: core
 	test		! -f	${BUILDDIR}/.local
 	mkdir		-p 	${BUILDDIR}/usr/share/${NAME}
-	cp 		-fr 	${WORKDIR}/widgets \
+	cp 		-fR 	${WORKDIR}/widgets \
 				${BUILDDIR}/usr/share/${NAME}
 
 completions: core
@@ -76,7 +76,7 @@ docs:
 reinstall: install
 install: all
 	mkdir		-p 	$(prefix)/
-	cp		-fr 	${BUILDDIR}/* \
+	cp		-fR 	${BUILDDIR}/* \
 				$(prefix)/
 
 plist: all
@@ -138,12 +138,12 @@ source-reinstall: source-install
 source-install:
 	[ -d ${SOURCESDIR}/usr/share/doc ] && \
 		mkdir	-p	$(prefix)/usr/share/doc && \
-		cp	-rf	${SOURCESDIR}/usr/share/doc \
+		cp	-Rf	${SOURCESDIR}/usr/share/doc \
 				$(prefix)/usr/share || true
 
 	[ -d ${SOURCESDIR}/usr/local/share/doc ] && \
 		mkdir	-p	$(prefix)/usr/local/share/doc && \
-		cp	-rf 	${SOURCESDIR}/usr/local/share/doc \
+		cp	-Rf 	${SOURCESDIR}/usr/local/share/doc \
 				$(prefix)/usr/local/share || true
 
 source-clean:
