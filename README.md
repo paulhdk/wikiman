@@ -69,6 +69,8 @@ pkg install wikiman*.txz
 
 Dependencies: `man`, `fzf`, `ripgrep`, `awk`, `w3m`, `coreutils`, `parallel`
 
+Wikiman uses GNU `find` and `awk`, so BSD users have to install `findutils` and `gawk`.
+
 ```bash
 # Clone from GitHub
 git clone 'https://github.com/filiparag/wikiman'
@@ -86,8 +88,6 @@ make local
 # Install Wikiman
 sudo make install
 ```
-
-Wikiman uses GNU `find` and `awk`, so BSD users have to install `findutils` and `gawk`.
 
 ## Additional documentation sources
 
