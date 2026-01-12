@@ -65,11 +65,12 @@ Or download latest _.txz_ package from [Releases](https://github.com/filiparag/w
 pkg install wikiman*.txz
 ```
 
-### Manual installation for Linux and BSD
+### Manual installation for Linux, BSD, and macOS
 
 Dependencies: `man`, `fzf`, `ripgrep`, `awk`, `w3m`, `coreutils`, `parallel`
 
-Wikiman uses GNU `find` and `awk`, so BSD users have to install `findutils` and `gawk`.
+Wikiman uses GNU `find` and `awk`, so BSD and macOS users have to additionally install `findutils` and `gawk`.
+macOS users are also required to install and use `gmake` instead of the system-default `make`. That either requires replacing every subsequent call to `make` in this document with `gmake` or setting `alias make=gmake`.
 
 ```bash
 # Clone from GitHub
@@ -84,6 +85,9 @@ make all
 
 # Only for BSD users: install to /usr/local instead of /usr
 make local
+
+# Only for macOS users: install to $HOME/.local instead of /usr and ensure that $HOME/.local/bin is in your PATH
+make install prefix=$HOME/.local
 
 # Install Wikiman
 sudo make install
