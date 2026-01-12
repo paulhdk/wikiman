@@ -146,6 +146,17 @@ source-install:
 		cp	-Rf 	${SOURCESDIR}/usr/local/share/doc \
 				$(prefix)/usr/local/share || true
 
+source-install-homebrew:
+	[ -d ${SOURCESDIR}/usr/share/doc ] && \
+		[ -d ${HOMEBREW_PREFIX}/share/doc ] && \
+		cp	-Rf 	${SOURCESDIR}/usr/share/doc \
+				${HOMEBREW_PREFIX}/share || true
+
+	[ -d ${SOURCESDIR}/usr/local/share/doc ] && \
+		[ -d ${HOMEBREW_PREFIX}/share/doc ] && \
+		cp	-Rf 	${SOURCESDIR}/usr/local/share/doc \
+				${HOMEBREW_PREFIX}/share || true
+
 source-clean:
 	rm		-rf 	${SOURCESDIR}
 
@@ -161,6 +172,12 @@ source-uninstall:
 				$(prefix)/usr/local/share/doc/freebsd-docs \
 				$(prefix)/usr/local/share/doc/gentoo-wiki \
 				$(prefix)/usr/local/share/doc/tldr-pages
+source-uninstall-homebrew:
+	rm		-rf	${HOMEBREW_PREFIX}/share/doc/arch-wiki/html \
+				${HOMEBREW_PREFIX}/share/doc/devdocs \
+				${HOMEBREW_PREFIX}/share/doc/freebsd-docs \
+				${HOMEBREW_PREFIX}/share/doc/gentoo-wiki \
+				${HOMEBREW_PREFIX}/share/doc/tldr-pages
 
 source-local:
 	test		! -d	${SOURCESDIR}/usr/local/share/doc
