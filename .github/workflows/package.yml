@@ -1,4 +1,4 @@
-name: Linux packager
+name: Packager
 
 on:
   workflow_dispatch:
@@ -8,7 +8,7 @@ on:
       - "*.*.*"
 
 jobs:
-  builder:
+  linux-builder:
     name: Linux package builder
     runs-on: ubuntu-latest
     steps:
@@ -36,6 +36,27 @@ jobs:
         docker run --rm -v ./build/package/release:/release:ro fedora:latest sh -c '
           dnf install -y /release/*.rpm && \
           wikiman -h | grep -q "^Options"'
+  macos-builder:
+    name: macOS package builder
+    runs-on: macos-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    - name: Install dependencies 
+      run: brew install man fzf ripgrep awk w3m coreutils parallel findutils gawk gmake
+    - name: Build macOS app
+      run: gmake all
+    - name: Test macOS build 
+      run: |
+        docker run --rm -v ./build/package/release:/release:ro archlinux:latest sh -c '
+          pacman -Sy --noconfirm && \
+          pacman -U --noconfirm /release/*.pkg.tar.zst && \
+          wikiman -h | grep -q "^Options"'
+  draft-release:
+    name: Upload packages to a new draft release
+    needs: [macos-builder, linux-builder]
+    runs-on: ubuntu-latest
+    steps:
     - name: Upload packages to a new draft release
       uses: softprops/action-gh-release@v2
       env:
@@ -45,5 +66,4 @@ jobs:
         tag_name: ${{ github.ref }}
         files: ./build/package/release/*
         draft: true
-        fail_on_unmatched_files: true
         generate_release_notes: true
