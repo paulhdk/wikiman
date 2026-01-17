@@ -139,7 +139,6 @@ source-install:
 		cp	-Rf 	${SOURCESDIR}/usr/local/share/doc \
 				$(prefix)/usr/local/share || true
 
-source-install-homebrew:
 	[ -d ${SOURCESDIR}/usr/share/doc ] && \
 		[ -d ${HOMEBREW_PREFIX}/share/doc ] && \
 		cp	-Rf 	${SOURCESDIR}/usr/share/doc \
