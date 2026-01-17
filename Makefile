@@ -4,16 +4,9 @@ RELEASE=	1
 UPSTREAM=	https://github.com/filiparag/wikiman
 UPSTREAM_API=	https://api.github.com/repos/filiparag/wikiman/releases/latest
 
-OS!= uname -s
-ifeq ($(OS), Darwin)
-	READLINK:= greadlink
-else
-	READLINK:= readlink
-endif
-
 MKFILEREL!=	echo ${.MAKE.MAKEFILES} | sed 's/.* //'
-MKFILEABS!=	${READLINK} -f ${MKFILEREL} 2>/dev/null
-MKFILEABS+= 	$(shell ${READLINK} -f ${MAKEFILE_LIST})
+MKFILEABS!=	readlink -f "${MKFILEREL}" 2>/dev/null
+MKFILEABS+= 	$(shell readlink -f ${MAKEFILE_LIST})
 WORKDIR!=	dirname ${MKFILEABS} 2>/dev/null
 
 BUILDDIR:=	${WORKDIR}/pkgbuild
